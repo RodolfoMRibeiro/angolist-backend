@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "container": "cd ./src/infra/local/ && docker-compose up -d"
   },
   "repository": "https://github.com/RodolfoMRibeiro/angolist-backend.git",
   "author": "rodolfo.ribeiro_q2pa <rodolfo.ribeiro@q2pay.com.br>",
