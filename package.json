@@ -1,0 +1,15 @@
+{
+  "name": "angolist-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/RodolfoMRibeiro/angolist-backend.git",
+  "author": "rodolfo.ribeiro_q2pa <rodolfo.ribeiro@q2pay.com.br>",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  }
+}
