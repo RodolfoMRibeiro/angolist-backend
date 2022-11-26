@@ -1,6 +1,6 @@
 {
     "code-runner.executorMap": {
-        "typescript": "clear && npx ts-node --files --transpile-only",
+        "typescript": "cls && npx ts-node --files --transpile-only",
     },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true,
