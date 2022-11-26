@@ -17,7 +17,7 @@ model tb_users {
   password    String
   project     tb_projects[]
   created_at  DateTime      @default(now())
-  deleted_at  DateTime      @default(now())
+  deleted_at  DateTime
 }
 
 model tb_projects {
