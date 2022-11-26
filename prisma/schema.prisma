@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://root:root@localhost:5432/db_angolist?schema=public"
 }
 
 generator client {
@@ -17,6 +17,7 @@ model tb_users {
   password    String
   project     tb_projects[]
   created_at  DateTime      @default(now())
+  deleted_at  DateTime      @default(now())
 }
 
 model tb_projects {
@@ -27,18 +28,19 @@ model tb_projects {
   project_survey  tb_project_surveys[]
 
   //CONSTRAINT
-  user        tb_users                @relation(fields: [user_id], references: [id])
+  user            tb_users             @relation(fields: [user_id], references: [id])
 }
 
 model tb_categories {
   id        Int           @id @default(autoincrement())
-  question  tb_questions?
+  name      String
+  question  tb_questions[]
 }
 
 model tb_questions {
   id                    Int                 @id @default(autoincrement())
   category_id           Int                 @unique
-  right_answer          Int
+  right_answer          Boolean
   feedback_title        String
   feedback_description  String
   project_survey        tb_project_surveys[]
