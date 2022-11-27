@@ -1,10 +1,16 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
+import { Login } from '../../common/types/login';
 
 export class WebToken {
-  public static generateAccessToken = (username: string): string => {
-    console.log(process.env.TOKEN_SECRET);
-    return jwt.sign(username, process.env.TOKEN_SECRET as jwt.Secret);
+  public static generateAccessToken = (login: Login): string => {
+    try {
+      return jwt.sign(login, process.env.TOKEN_SECRET as jwt.Secret, {
+        expiresIn: '2h',
+      });
+    } catch (e) {
+      return '';
+    }
   };
 
   public static authenticateToken = (
