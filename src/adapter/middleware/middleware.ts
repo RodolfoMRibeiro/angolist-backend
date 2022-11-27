@@ -1,6 +1,7 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
 import { Login } from '../../common/types/login';
+import { Header, Str } from '../../common/util/constants/constants';
 
 export class Middleware {
   public static generateAccessToken = (login: Login): string => {
@@ -18,8 +19,8 @@ export class Middleware {
     response: express.Response,
     nextFunction: express.NextFunction,
   ): express.Response | void => {
-    const authHeader = request.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const authHeader = request.headers[Header.AUTHORIZATION];
+    const token = authHeader && authHeader.split(Str.EMPTY_SPACE)[1];
 
     if (token == null) {
       const unauthorizedStatusCode = 401;
