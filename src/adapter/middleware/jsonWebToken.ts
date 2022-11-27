@@ -21,12 +21,11 @@ export class WebToken {
     }
 
     jwt.verify(token, process.env.TOKEN_SECRET as string, (error) => {
-      if (error == null) {
+      if (error != null) {
         const forbiddenStatusCode = 403;
         return response.sendStatus(forbiddenStatusCode);
       }
     });
-
     nextFunction();
   };
 }
