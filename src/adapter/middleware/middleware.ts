@@ -9,7 +9,7 @@ export class Middleware {
         expiresIn: '2h',
       });
     } catch (e) {
-      return '';
+      throw new Error('MISSING ENVIRONMENT VARIABLE');
     }
   };
 
