@@ -1,11 +1,63 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://root:root@localhost:5432/db_angolist?schema=public"
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+model tb_users {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  name        String
+  password    String
+  project     tb_projects[]
+  created_at  DateTime      @default(now())
+  deleted_at  DateTime
+}
+
+model tb_projects {
+  id              Int                 @id @default(autoincrement())
+  user_id         Int
+  name            String
+  description     String?
+  project_survey  tb_project_surveys[]
+  created_at      DateTime            @default(now())
+  deleted_at      DateTime
+
+  //CONSTRAINT
+  user            tb_users             @relation(fields: [user_id], references: [id])
+}
+
+model tb_categories {
+  id        Int           @id @default(autoincrement())
+  name      String
+  question  tb_questions[]
+}
+
+model tb_questions {
+  id                    Int                 @id @default(autoincrement())
+  category_id           Int                 @unique
+  right_answer          Boolean
+  feedback_title        String
+  feedback_description  String
+  project_survey        tb_project_surveys[]
+
+  //CONSTRAINT
+  category              tb_categories       @relation(fields: [category_id], references: [id])
+}
+
+model tb_project_surveys {
+  question_id Int
+  project_id  Int
+
+  //CONSTRAINT
+  question    tb_questions  @relation(fields: [question_id], references: [id])
+  project     tb_projects   @relation(fields: [project_id], references: [id])
+
+  @@id([question_id, project_id])
 }
