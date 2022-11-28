@@ -17,7 +17,7 @@ model tb_users {
   password    String
   project     tb_projects[]
   created_at  DateTime      @default(now())
-  deleted_at  DateTime
+  deleted_at  DateTime?
 }
 
 model tb_projects {
@@ -27,7 +27,7 @@ model tb_projects {
   description     String?
   project_survey  tb_project_surveys[]
   created_at      DateTime            @default(now())
-  deleted_at      DateTime
+  deleted_at      DateTime?
 
   //CONSTRAINT
   user            tb_users             @relation(fields: [user_id], references: [id])
