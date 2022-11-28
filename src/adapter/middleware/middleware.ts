@@ -1,10 +1,10 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
-import { Login } from '../../common/types/login';
+import { ILogin } from '../../modules/login/ports/dto/login';
 import { Header, Str } from '../../common/util/constants/constants';
 
 export class Middleware {
-  public static generateAccessToken = (login: Login): string => {
+  public static generateAccessToken = (login: ILogin): string => {
     try {
       return jwt.sign(login, process.env.TOKEN_SECRET as jwt.Secret, {
         expiresIn: '2h',
