@@ -16,7 +16,7 @@ export class Encryptor {
     return hashedPassword;
   };
 
-  public static IsSamePassword = async (
+  public static ComparePasswordWithHash = async (
     currentPassword: string,
     encryptedPassword: string,
   ): Promise<boolean> => {
