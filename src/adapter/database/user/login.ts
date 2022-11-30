@@ -8,9 +8,9 @@ export class UserRepository<T> {
   }
 
   public create = async (user: T): Promise<void> => {
-    const userModel = <Prisma.tb_usersCreateInput>user;
+    const userModel = <Prisma.UserCreateInput>user;
 
-    await this._prismaClient.tb_users
+    await this._prismaClient.user
       .create({ data: userModel })
       .then(async () => {
         this._prismaClient.$disconnect();

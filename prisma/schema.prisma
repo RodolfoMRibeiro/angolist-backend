@@ -10,54 +10,54 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model tb_users {
+model User {
   id          Int           @id @default(autoincrement())
   email       String        @unique
   name        String
   password    String
-  project     tb_projects[]
+  project     Project[]
   created_at  DateTime      @default(now())
   deleted_at  DateTime?
 }
 
-model tb_projects {
+model Project {
   id              Int                 @id @default(autoincrement())
   user_id         Int
   name            String
   description     String?
-  project_survey  tb_project_surveys[]
+  project_survey  Project_survey[]
   created_at      DateTime            @default(now())
   deleted_at      DateTime?
 
   //CONSTRAINT
-  user            tb_users             @relation(fields: [user_id], references: [id])
+  user            User             @relation(fields: [user_id], references: [id])
 }
 
-model tb_categories {
+model Category {
   id        Int           @id @default(autoincrement())
   name      String
-  question  tb_questions[]
+  question  Question[]
 }
 
-model tb_questions {
+model Question {
   id                    Int                 @id @default(autoincrement())
   category_id           Int                 @unique
   right_answer          Boolean
   feedback_title        String
   feedback_description  String
-  project_survey        tb_project_surveys[]
+  project_survey        Project_survey[]
 
   //CONSTRAINT
-  category              tb_categories       @relation(fields: [category_id], references: [id])
+  category              Category       @relation(fields: [category_id], references: [id])
 }
 
-model tb_project_surveys {
+model Project_survey {
   question_id Int
   project_id  Int
 
   //CONSTRAINT
-  question    tb_questions  @relation(fields: [question_id], references: [id])
-  project     tb_projects   @relation(fields: [project_id], references: [id])
+  question    Question  @relation(fields: [question_id], references: [id])
+  project     Project   @relation(fields: [project_id], references: [id])
 
   @@id([question_id, project_id])
 }

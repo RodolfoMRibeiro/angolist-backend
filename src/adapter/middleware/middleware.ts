@@ -1,6 +1,6 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
-import { ILogin } from '../../modules/login/ports/dto/login';
+import { ILogin } from '../../modules/login/dto/login';
 import { Header, Str } from '../../common/util/constants/constants';
 
 export class Middleware {

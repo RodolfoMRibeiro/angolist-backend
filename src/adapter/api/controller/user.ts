@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { BaseController } from '../models/baseControllerClass';
-import { IUserService } from '../../../modules/login/ports/service/UserService';
-import { UserDto } from '../../../modules/login/ports/dto/user';
+import { IUserService } from '../../../modules/login/service/UserService';
+import { UserDto } from '../../../modules/login/dto/user';
 
 export class UserController extends BaseController {
   private _userService: IUserService;

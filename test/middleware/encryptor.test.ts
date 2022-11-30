@@ -9,12 +9,12 @@ describe('Encryptor --> HashPassword', () => {
   });
 });
 
-describe('Encryptor --> IsSamePassword', () => {
+describe('Encryptor --> ComparePasswordWithHash', () => {
   const commonPassword = 'normal_password';
 
   test('compare encrypted password with unencrypted password --> Success', async () => {
     const encryptedPassword = await Encryptor.HashPassword(commonPassword);
-    const expectedBoolean = await Encryptor.IsSamePassword(
+    const expectedBoolean = await Encryptor.ComparePasswordWithHash(
       commonPassword,
       encryptedPassword,
     );
@@ -24,7 +24,7 @@ describe('Encryptor --> IsSamePassword', () => {
 
   test('compare encrypted password with unencrypted password --> Fail', async () => {
     const encryptedPassword = await Encryptor.HashPassword(commonPassword);
-    const expectedBoolean = await Encryptor.IsSamePassword(
+    const expectedBoolean = await Encryptor.ComparePasswordWithHash(
       encryptedPassword,
       commonPassword,
     );
