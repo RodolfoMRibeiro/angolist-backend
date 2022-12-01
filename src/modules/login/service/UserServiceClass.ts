@@ -1,5 +1,5 @@
 import { UserDto } from '../dto/user';
-import { IUserService } from './UserService';
+import { IUserService } from './UserServiceInterface';
 import { IUserRepository } from '../repository/userRepository';
 import { Encryptor } from '../../../adapter/middleware/encryptor';
 

@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { Str } from '../../../common/util/constants/constants';
 
 export abstract class BaseController {
   public static jsonResponse = (
@@ -12,7 +13,20 @@ export abstract class BaseController {
   protected abstract create(
     req: express.Request,
     res: express.Response,
-  ): Promise<void | any>;
+  ): Promise<any>;
+
+  protected successRequest = (
+    response: express.Response,
+    message?: string,
+  ): express.Response => {
+    const successResponseStatusCode = 200;
+
+    return BaseController.jsonResponse(
+      response,
+      successResponseStatusCode,
+      message ? message : Str.EMPTY_STRING,
+    );
+  };
 
   protected clientError = (
     response: express.Response,
