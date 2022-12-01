@@ -1,11 +1,12 @@
 import express from 'express';
+import { Env } from '../../common/env/env';
 
 export class Server {
   private _port?: string;
   private _express: express.Express;
 
   public constructor() {
-    this._port = process.env.PORT;
+    this._port = Env.PORT;
     this._express = express();
   }
 

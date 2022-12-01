@@ -2,11 +2,12 @@ import * as express from 'express';
 import jwt from 'jsonwebtoken';
 import { ILogin } from '../../modules/login/dto/login';
 import { Header, Str } from '../../common/util/constants/constants';
+import { Env } from '../../common/env/env';
 
 export class Middleware {
   public static generateAccessToken = (login: ILogin): string => {
     try {
-      return jwt.sign(login, process.env.TOKEN_SECRET as jwt.Secret, {
+      return jwt.sign(login, <jwt.Secret>Env.TOKEN_SECRET, {
         expiresIn: '2h',
       });
     } catch (e) {
@@ -27,7 +28,7 @@ export class Middleware {
       return response.sendStatus(unauthorizedStatusCode);
     }
 
-    jwt.verify(token, process.env.TOKEN_SECRET as string, (error) => {
+    jwt.verify(token, <jwt.Secret>Env.TOKEN_SECRET, (error) => {
       if (error != null) {
         const forbiddenStatusCode = 403;
         return response.sendStatus(forbiddenStatusCode);
