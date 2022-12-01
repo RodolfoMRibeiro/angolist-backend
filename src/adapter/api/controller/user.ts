@@ -11,7 +11,10 @@ export class UserController extends BaseController {
     this._userService = userService;
   }
 
-  public create = async (req: Request, res: Response): Promise<Response> => {
+  public override create = async (
+    req: Request,
+    res: Response,
+  ): Promise<Response> => {
     try {
       const userInstance = <UserDto>req.body;
       await this._userService.create(userInstance);
