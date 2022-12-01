@@ -1,6 +1,6 @@
 import { Server } from '../adapter/server/server';
-import { Load } from '../common/env/env';
+import { Env } from '../common/env/env';
 
-Load();
+Env.Load();
 const server = new Server();
 server.Run();
