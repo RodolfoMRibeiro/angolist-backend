@@ -1,11 +1,11 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
-import { Login } from '../../common/types/login';
+import { ILogin } from '../../modules/login/dto/login';
 import { Header, Str } from '../../common/util/constants/constants';
 import { Env } from '../../common/env/env';
 
 export class Middleware {
-  public static generateAccessToken = (login: Login): string => {
+  public static generateAccessToken = (login: ILogin): string => {
     try {
       return jwt.sign(login, <jwt.Secret>Env.TOKEN_SECRET, {
         expiresIn: '2h',
