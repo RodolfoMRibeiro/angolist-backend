@@ -2,6 +2,7 @@ import { Router, IRouter, Request, Response } from 'express';
 import { BaseController } from '../models/classes/baseControllerClass';
 import { IUserService } from '../../../modules/login/service/UserServiceInterface';
 import { UserDto } from '../../../modules/login/dto/user';
+import { Routes } from '../../../common/util/constants/constants';
 
 export class UserController extends BaseController {
   private _router: IRouter;
@@ -28,10 +29,10 @@ export class UserController extends BaseController {
   };
 
   public override SetupRouter(router: IRouter): void {
-    router.use('/user', this._router);
+    router.use(Routes.USER, this._router);
   }
 
   private _registerRoutes() {
-    this._router.post('/create', this.create);
+    this._router.post(Routes.CREATE, this.create);
   }
 }

@@ -13,15 +13,8 @@ export class UserRepository {
 
     await this._prismaClient.user
       .create({ data: userModel })
-      .then(async () => {
-        this._prismaClient.$disconnect();
-      })
       .catch(async (e) => {
-        const exitCode = 1;
-        console.error(e);
-
-        await this._prismaClient.$disconnect();
-        process.exit(exitCode);
+        throw new Error(`COULD NOT CREATE USER: ${e}`);
       });
   };
 }
