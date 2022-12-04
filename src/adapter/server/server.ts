@@ -2,24 +2,23 @@ import express from 'express';
 import { Env } from '../../common/env/env';
 
 export class Server {
-  private _port?: string;
-  private _express: express.Express;
+  public app: express.Application;
+  private _port: string;
 
   public constructor() {
     this._port = Env.PORT;
-    this._express = express();
+    this.app = express();
+    this.config();
   }
 
-  public Run = (): void => {
-    this._express.listen(this._port, () => {
-      console.log('listening on port ' + this._port);
+  public start(): void {
+    this.app.listen(this._port, () => {
+      console.log(`Server listening in port ${this._port}`);
     });
-  };
+  }
 
-  public SetRouteGroup = (
-    group: string,
-    routerHandler: express.IRouter,
-  ): void => {
-    this._express.use(group, routerHandler);
+  private config = (): void => {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: false }));
   };
 }

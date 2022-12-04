@@ -1,14 +1,18 @@
-import { Request, Response } from 'express';
-import { BaseController } from '../models/baseControllerClass';
+import { Router, IRouter, Request, Response } from 'express';
+import { BaseController } from '../models/classes/baseControllerClass';
 import { IUserService } from '../../../modules/login/service/UserServiceInterface';
 import { UserDto } from '../../../modules/login/dto/user';
+import { Routes } from '../../../common/util/constants/constants';
 
 export class UserController extends BaseController {
+  private _router: IRouter;
   private _userService: IUserService;
 
   constructor(userService: IUserService) {
     super();
+    this._router = Router();
     this._userService = userService;
+    this._registerRoutes();
   }
 
   public override create = async (
@@ -23,4 +27,12 @@ export class UserController extends BaseController {
       return this.clientError(res, 'COULD NOT CREATE USER');
     }
   };
+
+  public override SetupRouter(router: IRouter): void {
+    router.use(Routes.USER, this._router);
+  }
+
+  private _registerRoutes() {
+    this._router.post(Routes.CREATE, this.create);
+  }
 }

@@ -1,7 +1,15 @@
 import * as express from 'express';
-import { Str } from '../../../common/util/constants/constants';
+import { Str } from '../../../../common/util/constants/constants';
+import { IController } from '../interfaces/IController';
 
-export abstract class BaseController {
+export abstract class BaseController implements IController {
+  public abstract create(
+    request: express.Request,
+    response: express.Response,
+  ): Promise<express.Response>;
+
+  public abstract SetupRouter(router: express.IRouter): void;
+
   public static jsonResponse = (
     response: express.Response,
     code: number,
@@ -9,11 +17,6 @@ export abstract class BaseController {
   ): express.Response => {
     return response.status(code).json({ message });
   };
-
-  protected abstract create(
-    req: express.Request,
-    res: express.Response,
-  ): Promise<any>;
 
   protected successRequest = (
     response: express.Response,
