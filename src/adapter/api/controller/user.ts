@@ -27,7 +27,7 @@ export class UserController extends BaseController {
     }
   };
 
-  public SetupRouter(router: IRouter): void {
+  public override SetupRouter(router: IRouter): void {
     router.use('/user', this._router);
   }
 
