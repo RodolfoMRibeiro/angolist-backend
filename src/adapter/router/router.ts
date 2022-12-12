@@ -1,6 +1,6 @@
 import { IRouter, Router } from 'express';
 import { Builder } from '../api/builders/userBuilder';
-import { IController } from '../api/models/interfaces/IController';
+import { IController } from '../../common/models/interfaces/IController';
 
 export class ApiRouter {
   private static _router: IRouter = Router();

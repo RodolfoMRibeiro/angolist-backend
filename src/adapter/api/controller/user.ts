@@ -1,5 +1,5 @@
 import { Router, IRouter, Request, Response } from 'express';
-import { BaseController } from '../models/classes/baseControllerClass';
+import { BaseController } from '../../../common/models/classes/baseControllerClass';
 import { IUserService } from '../../../modules/login/service/UserServiceInterface';
 import { UserDto } from '../../../modules/login/dto/user';
 import { Routes } from '../../../common/util/constants/constants';

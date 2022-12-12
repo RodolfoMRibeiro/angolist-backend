@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Str } from '../../../../common/util/constants/constants';
+import { Str } from '../../util/constants/constants';
 import { IController } from '../interfaces/IController';
 
 export abstract class BaseController implements IController {

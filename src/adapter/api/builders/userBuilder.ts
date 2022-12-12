@@ -1,7 +1,7 @@
 import { UserService } from '../../../modules/login/service/UserServiceClass';
-import { UserRepository } from '../../database/user/login';
+import { UserRepository } from '../../database/registration/userRepository';
 import { UserController } from '../controller/user';
-import { IController } from '../models/interfaces/IController';
+import { IController } from '../../../common/models/interfaces/IController';
 
 export class Builder {
   public static NewUserController(): IController {
