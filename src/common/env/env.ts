@@ -1,4 +1,5 @@
 import * as dotenv from 'dotenv';
+import { EnvError } from '../util/errors/errors';
 
 export class Env {
   public static TOKEN_SECRET: string;
@@ -9,6 +10,7 @@ export class Env {
   public static Load = (): void => {
     dotenv.config({ path: __dirname + '/../../../.env' });
     this.loadEnvironmentsVariables();
+    this._panicIfNotExists();
   };
 
   private static loadEnvironmentsVariables = (): void => {
@@ -17,4 +19,16 @@ export class Env {
     this.HOST = <string>process.env.HOST;
     this.PORT = <string>process.env.PORT;
   };
+
+  private static _panicIfNotExists() {
+    if (this.TOKEN_SECRET === undefined) this._panic();
+    if (this.DATABASE_URL === undefined) this._panic();
+    if (this.HOST === undefined) this._panic();
+    if (this.PORT === undefined) this._panic();
+  }
+
+  private static _panic(message?: string) {
+    const exitCode = 1;
+    process.kill(exitCode, message ?? EnvError.MISSING_ENVIRONMENT_VARIABLE);
+  }
 }
