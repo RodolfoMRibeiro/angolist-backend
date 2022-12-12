@@ -7,7 +7,7 @@ export class Env {
   public static PORT: string;
 
   public static Load = (): void => {
-    dotenv.config({ path: __dirname + '/.env' });
+    dotenv.config({ path: __dirname + '/../../../.env' });
     this.loadEnvironmentsVariables();
   };
 

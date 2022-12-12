@@ -1,4 +1,5 @@
 import { PrismaClient, Prisma } from '@prisma/client';
+import { RegistrationError } from '../../../common/util/errors/errors';
 import { UserDto } from '../../../modules/login/dto/user';
 
 export class UserRepository {
@@ -13,8 +14,8 @@ export class UserRepository {
 
     await this._prismaClient.user
       .create({ data: userModel })
-      .catch(async (e) => {
-        throw new Error(`COULD NOT CREATE USER: ${e}`);
+      .catch(async (err) => {
+        throw new Error(RegistrationError.COULD_NOT_CREATE_USER + err);
       });
   };
 }

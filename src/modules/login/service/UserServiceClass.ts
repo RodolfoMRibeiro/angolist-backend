@@ -14,8 +14,8 @@ export class UserService implements IUserService {
     try {
       user.password = await Encryptor.HashPassword(user.password);
       await this._repository.create(user);
-    } catch (e) {
-      throw new Error('COULD NOT CREATE USER');
+    } catch (err) {
+      throw new Error(<string>err);
     }
   };
 }

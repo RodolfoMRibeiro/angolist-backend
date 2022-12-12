@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import { ILogin } from '../../modules/login/dto/login';
 import { Header, Str } from '../../common/util/constants/constants';
 import { Env } from '../../common/env/env';
+import { EnvError } from '../../common/util/errors/errors';
 
 export class Middleware {
   public static generateAccessToken = (login: ILogin): string => {
@@ -11,7 +12,7 @@ export class Middleware {
         expiresIn: '2h',
       });
     } catch (e) {
-      throw new Error('MISSING ENVIRONMENT VARIABLE');
+      throw new Error(EnvError.MISSING_ENVIRONMENT_VARIABLE);
     }
   };
 

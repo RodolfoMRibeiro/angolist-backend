@@ -23,8 +23,8 @@ export class UserController extends BaseController {
       const userInstance = <UserDto>req.body;
       await this._userService.create(userInstance);
       return this.successRequest(res, 'user created successfully');
-    } catch (e) {
-      return this.clientError(res, 'COULD NOT CREATE USER');
+    } catch (err) {
+      return this.clientError(res, <string>err);
     }
   };
 
