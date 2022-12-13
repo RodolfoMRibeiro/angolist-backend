@@ -3,25 +3,25 @@ import { Str } from '../../util/constants/constants';
 import { IController } from '../interfaces/IController';
 
 export abstract class BaseController implements IController {
-  public abstract create(
+  public abstract Create(
     request: express.Request,
     response: express.Response,
   ): Promise<express.Response>;
 
   public abstract SetupRouter(router: express.IRouter): void;
 
-  public static jsonResponse = (
+  public static jsonResponse(
     response: express.Response,
     code: number,
     message: string,
-  ): express.Response => {
+  ): express.Response {
     return response.status(code).json({ message });
-  };
+  }
 
-  protected successRequest = (
+  protected successRequest(
     response: express.Response,
     message?: string,
-  ): express.Response => {
+  ): express.Response {
     const successResponseStatusCode = 200;
 
     return BaseController.jsonResponse(
@@ -29,12 +29,12 @@ export abstract class BaseController implements IController {
       successResponseStatusCode,
       message ? message : Str.EMPTY_STRING,
     );
-  };
+  }
 
-  protected clientError = (
+  protected clientError(
     response: express.Response,
     message?: string,
-  ): express.Response => {
+  ): express.Response {
     const clientErrorResponseStatusCode = 400;
 
     return BaseController.jsonResponse(
@@ -42,12 +42,12 @@ export abstract class BaseController implements IController {
       clientErrorResponseStatusCode,
       message ? message : 'Unauthorized',
     );
-  };
+  }
 
-  protected unauthorized = (
+  protected unauthorized(
     response: express.Response,
     message?: string,
-  ): express.Response => {
+  ): express.Response {
     const unauthorizedResponseStatusCode = 401;
 
     return BaseController.jsonResponse(
@@ -55,12 +55,12 @@ export abstract class BaseController implements IController {
       unauthorizedResponseStatusCode,
       message ? message : 'Unauthorized',
     );
-  };
+  }
 
-  protected forbidden = (
+  protected forbidden(
     response: express.Response,
     message?: string,
-  ): express.Response => {
+  ): express.Response {
     const forbiddenResponseStatusCode = 403;
 
     return BaseController.jsonResponse(
@@ -68,12 +68,12 @@ export abstract class BaseController implements IController {
       forbiddenResponseStatusCode,
       message ? message : 'Forbidden',
     );
-  };
+  }
 
-  protected notFound = (
+  protected notFound(
     response: express.Response,
     message?: string,
-  ): express.Response => {
+  ): express.Response {
     const notFoundResponseStatusCode = 404;
 
     return BaseController.jsonResponse(
@@ -81,5 +81,5 @@ export abstract class BaseController implements IController {
       notFoundResponseStatusCode,
       message ? message : 'Not found',
     );
-  };
+  }
 }
