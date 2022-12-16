@@ -4,4 +4,5 @@ import { UserDto } from '../dto/user';
 export interface IUserRepository {
   Create(user: UserDto): Promise<void>;
   Login(email: string): Promise<LoginDto>;
+  Update(user: UserDto): Promise<UserDto>;
 }

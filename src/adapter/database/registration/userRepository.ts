@@ -1,11 +1,11 @@
-import { PrismaClient, Prisma, prisma } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
 import { RegistrationError } from '../../../common/util/errors/errors';
 import { LoginDto } from '../../../modules/login/dto/login';
 import { UserDto } from '../../../modules/login/dto/user';
 import { IUserRepository } from '../../../modules/login/repository/userRepository';
 
 export class UserRepository implements IUserRepository {
-  private readonly _prismaClient;
+  private _prismaClient;
 
   constructor() {
     this._prismaClient = new PrismaClient();
@@ -31,5 +31,18 @@ export class UserRepository implements IUserRepository {
       });
 
     return userLogin;
+  }
+
+  public async Update(user: UserDto): Promise<UserDto> {
+    const updatedUser = await this._prismaClient.user
+      .update({
+        where: { email: user.email },
+        data: { name: user.name, password: user.password },
+      })
+      .catch((err) => {
+        throw new Error(RegistrationError.COULD_NOT_UPDATE_USER + <string>err);
+      });
+
+    return updatedUser;
   }
 }

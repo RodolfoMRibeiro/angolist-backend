@@ -1,12 +1,12 @@
 import { IRouter, Router } from 'express';
 import { Builder } from '../api/builders/userBuilder';
-import { IController } from '../../common/models/interfaces/IController';
+import { IUserController } from '../api/builders/userController';
 
 export class ApiRouter {
   private static _router: IRouter = Router();
-  private static _userController: IController = Builder.NewUserController();
+  private static _userController: IUserController = Builder.NewUserController();
 
-  public static getRouter(): IRouter {
+  public static GetRouter(): IRouter {
     this._loadRouter();
     return this._router;
   }

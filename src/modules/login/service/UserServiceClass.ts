@@ -32,4 +32,15 @@ export class UserService implements IUserService {
       throw new Error(<string>err);
     }
   }
+
+  public async Update(user: UserDto): Promise<UserDto> {
+    try {
+      if (user.password != undefined && user.password != null) {
+        user.password = await Encryptor.HashPassword(user.password);
+      }
+      return await this._repository.Update(user);
+    } catch (err) {
+      throw new Error(<string>err);
+    }
+  }
 }

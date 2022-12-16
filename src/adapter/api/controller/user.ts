@@ -18,20 +18,40 @@ export class UserController extends BaseController implements IUserController {
   }
 
   public async Login(req: Request, res: Response): Promise<Response<boolean>> {
-    const userInstance = <LoginDto>req.body;
-    const isValidLogin = await this._userService.Login(userInstance);
+    try {
+      const userInstance = <LoginDto>req.body;
+      const isValidLogin = await this._userService.Login(userInstance);
 
-    const successResponseStatusCode = 200;
-    return res.status(successResponseStatusCode).json({ access: isValidLogin });
+      const successResponseStatusCode = 200;
+      return res
+        .status(successResponseStatusCode)
+        .json({ access: isValidLogin });
+    } catch (err) {
+      return super.notFound(res, <string>err);
+    }
+  }
+
+  public override async Update(req: Request, res: Response): Promise<Response> {
+    try {
+      const userInstance = <UserDto>req.body;
+      const updatedUser = await this._userService.Update(userInstance);
+
+      const successResponseStatusCode = 200;
+      return res
+        .status(successResponseStatusCode)
+        .json({ updatedUser: updatedUser });
+    } catch (err) {
+      throw new Error(<string>err);
+    }
   }
 
   public override async Create(req: Request, res: Response): Promise<Response> {
     try {
       const userInstance = <UserDto>req.body;
       await this._userService.Create(userInstance);
-      return this.successRequest(res, 'user created successfully');
+      return super.successRequest(res, 'user created successfully');
     } catch (err) {
-      return this.clientError(res, <string>err);
+      return super.clientError(res, <string>err);
     }
   }
 
@@ -41,5 +61,7 @@ export class UserController extends BaseController implements IUserController {
 
   private _registerRoutes() {
     this._router.post(Routes.CREATE, this.Create);
+    this._router.post(Routes.DEFAULT, this.Login);
+    this._router.put(Routes.UPDATE, this.Update);
   }
 }

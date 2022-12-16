@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
+import { IController } from '../../../common/models/interfaces/IController';
 
-export interface IUserController {
-  Create(req: Request, res: Response): Promise<Response>;
+export interface IUserController extends IController {
   Login(req: Request, res: Response): Promise<Response>;
 }

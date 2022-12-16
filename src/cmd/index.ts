@@ -5,6 +5,6 @@ import { Routes } from '../common/util/constants/constants';
 
 Env.Load();
 const server = new Server();
-server.app.use(Routes.API, ApiRouter.getRouter());
+server.app.use(Routes.API, ApiRouter.GetRouter());
 console.log(Env.PORT);
 server.start();
