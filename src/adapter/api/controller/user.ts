@@ -5,6 +5,8 @@ import { UserDto } from '../../../modules/login/dto/registration/user';
 import { IUserController } from '../../../common/models/interfaces/IUserController';
 import { LoginDto } from '../../../modules/login/dto/registration/login';
 import { RegistrationError } from '../../../common/util/errors/errors';
+import { Middleware } from '../../middleware/middleware';
+import { Str } from '../../../common/util/constants/constants';
 
 export class UserController extends BaseController implements IUserController {
   private _userService: IUserService;
@@ -19,7 +21,10 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <LoginDto>req.body;
       const isValidLogin = await this._userService.Login(userInstance);
 
-      return super.successRequest(res, { access: isValidLogin });
+      const accessToken = isValidLogin ? Middleware.generateAccessToken(userInstance) :
+        Str.EMPTY_STRING;
+
+      return super.successRequest(res, { access: isValidLogin, token: accessToken });
     } catch (err) {
       console.log(err);
       return super.notFound(res, RegistrationError.COULD_NOT_FIND_USER);
@@ -31,7 +36,7 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <UserDto>req.body;
       await this._userService.Create(userInstance);
     
-      return super.successRequest(res, 'user created successfully');
+      return super.successRequest(res, { user: userInstance });
     } catch (err) {
       console.log(err);
       return super.clientError(res, RegistrationError.COULD_NOT_CREATE_USER);
@@ -43,11 +48,10 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <UserDto>req.body;
       const updatedUser = await this._userService.Update(userInstance);
 
-      return super.successRequest(res, { updatedUser: updatedUser })
+      return super.successRequest(res, { user: updatedUser })
     } catch (err) {
       console.log(err);
       return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
     }
   }
-
 }
