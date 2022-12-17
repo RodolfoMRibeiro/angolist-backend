@@ -16,14 +16,14 @@ export abstract class BaseController implements IController {
   public static jsonResponse(
     response: express.Response,
     code: number,
-    message: string,
+    message: any,
   ): express.Response {
     return response.status(code).json({ message });
   }
 
   protected successRequest(
     response: express.Response,
-    message?: string,
+    message?: any,
   ): express.Response {
     const successResponseStatusCode = 200;
 
@@ -36,7 +36,7 @@ export abstract class BaseController implements IController {
 
   protected clientError(
     response: express.Response,
-    message?: string,
+    message?: any,
   ): express.Response {
     const clientErrorResponseStatusCode = 400;
 
@@ -49,7 +49,7 @@ export abstract class BaseController implements IController {
 
   protected unauthorized(
     response: express.Response,
-    message?: string,
+    message?: any,
   ): express.Response {
     const unauthorizedResponseStatusCode = 401;
 
@@ -62,7 +62,7 @@ export abstract class BaseController implements IController {
 
   protected forbidden(
     response: express.Response,
-    message?: string,
+    message?: any,
   ): express.Response {
     const forbiddenResponseStatusCode = 403;
 
@@ -75,7 +75,7 @@ export abstract class BaseController implements IController {
 
   protected notFound(
     response: express.Response,
-    message?: string,
+    message?: any,
   ): express.Response {
     const notFoundResponseStatusCode = 404;
 

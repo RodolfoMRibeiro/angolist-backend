@@ -26,7 +26,7 @@ export class UserController extends BaseController implements IUserController {
         .status(successResponseStatusCode)
         .json({ access: isValidLogin });
     } catch (err) {
-      return super.notFound(res, <string>err);
+      return super.notFound(res, err);
     }
   }
 
@@ -37,7 +37,7 @@ export class UserController extends BaseController implements IUserController {
       return super.successRequest(res, 'user created successfully');
     } catch (err) {
       console.log('entrou aqui');
-      return super.clientError(res, <string>err);
+      return super.clientError(res, err);
     }
   }
 
@@ -51,7 +51,7 @@ export class UserController extends BaseController implements IUserController {
         .status(successResponseStatusCode)
         .json({ updatedUser: updatedUser });
     } catch (err) {
-      throw new Error(<string>err);
+      return super.clientError(res, err);
     }
   }
 
