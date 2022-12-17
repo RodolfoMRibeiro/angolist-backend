@@ -1,18 +1,16 @@
-import { Router, IRouter, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { BaseController } from '../../../common/models/classes/baseControllerClass';
 import { IUserService } from '../../../modules/login/service/UserServiceInterface';
 import { UserDto } from '../../../modules/login/dto/user';
-import { Routes } from '../../../common/util/constants/constants';
 import { IUserController } from '../builders/userController';
 import { LoginDto } from '../../../modules/login/dto/login';
+import { RegistrationError } from '../../../common/util/errors/errors';
 
 export class UserController extends BaseController implements IUserController {
-  private _router: IRouter;
   private _userService: IUserService;
 
   constructor(userService: IUserService) {
     super();
-    this._router = Router();
     this._userService = userService;
   }
 
@@ -21,12 +19,10 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <LoginDto>req.body;
       const isValidLogin = await this._userService.Login(userInstance);
 
-      const successResponseStatusCode = 200;
-      return res
-        .status(successResponseStatusCode)
-        .json({ access: isValidLogin });
+      return super.successRequest(res, { access: isValidLogin });
     } catch (err) {
-      return super.notFound(res, err);
+      console.log(err);
+      return super.notFound(res, RegistrationError.COULD_NOT_FIND_USER);
     }
   }
 
@@ -34,10 +30,11 @@ export class UserController extends BaseController implements IUserController {
     try {
       const userInstance = <UserDto>req.body;
       await this._userService.Create(userInstance);
+    
       return super.successRequest(res, 'user created successfully');
     } catch (err) {
-      console.log('entrou aqui');
-      return super.clientError(res, err);
+      console.log(err);
+      return super.clientError(res, RegistrationError.COULD_NOT_CREATE_USER);
     }
   }
 
@@ -46,12 +43,10 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <UserDto>req.body;
       const updatedUser = await this._userService.Update(userInstance);
 
-      const successResponseStatusCode = 200;
-      return res
-        .status(successResponseStatusCode)
-        .json({ updatedUser: updatedUser });
+      return super.successRequest(res, { updatedUser: updatedUser })
     } catch (err) {
-      return super.clientError(res, err);
+      console.log(err);
+      return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
     }
   }
 
