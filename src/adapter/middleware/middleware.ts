@@ -1,6 +1,6 @@
 import * as express from 'express';
 import jwt from 'jsonwebtoken';
-import { LoginDto } from '../../modules/login/dto/login';
+import { LoginDto } from '../../modules/login/dto/registration/login';
 import { Header, Str } from '../../common/util/constants/constants';
 import { Env } from '../../common/env/env';
 import { EnvError } from '../../common/util/errors/errors';

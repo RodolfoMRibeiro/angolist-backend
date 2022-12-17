@@ -1,8 +1,8 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 import { RegistrationError } from '../../../common/util/errors/errors';
-import { LoginDto } from '../../../modules/login/dto/login';
-import { UserDto } from '../../../modules/login/dto/user';
-import { IUserRepository } from '../../../modules/login/repository/userRepository';
+import { LoginDto } from '../../../modules/login/dto/registration/login';
+import { UserDto } from '../../../modules/login/dto/registration/user';
+import { IUserRepository } from '../../../modules/login/repository/IUserRepository';
 
 export class UserRepository implements IUserRepository {
   private _prismaClient;

@@ -1,5 +1,5 @@
-import { UserDto } from '../dto/user';
-import { LoginDto } from '../dto/login';
+import { UserDto } from '../../../modules/login/dto/registration/user';
+import { LoginDto } from '../../../modules/login/dto/registration/login';
 
 export interface IUserService {
   Create(user: UserDto): Promise<void>;

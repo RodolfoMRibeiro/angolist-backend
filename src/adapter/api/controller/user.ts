@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { BaseController } from '../../../common/models/classes/baseControllerClass';
-import { IUserService } from '../../../modules/login/service/UserServiceInterface';
-import { UserDto } from '../../../modules/login/dto/user';
-import { IUserController } from '../builders/userController';
-import { LoginDto } from '../../../modules/login/dto/login';
+import { IUserService } from '../../../common/models/interfaces/IUserService';
+import { UserDto } from '../../../modules/login/dto/registration/user';
+import { IUserController } from '../../../common/models/interfaces/IUserController';
+import { LoginDto } from '../../../modules/login/dto/registration/login';
 import { RegistrationError } from '../../../common/util/errors/errors';
 
 export class UserController extends BaseController implements IUserController {

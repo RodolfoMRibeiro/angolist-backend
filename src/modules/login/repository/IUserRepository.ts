@@ -1,5 +1,5 @@
-import { LoginDto } from '../dto/login';
-import { UserDto } from '../dto/user';
+import { LoginDto } from '../dto/registration/login';
+import { UserDto } from '../dto/registration/user';
 
 export interface IUserRepository {
   Create(user: UserDto): Promise<void>;

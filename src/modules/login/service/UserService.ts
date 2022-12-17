@@ -1,8 +1,8 @@
-import { UserDto } from '../dto/user';
-import { IUserService } from './UserServiceInterface';
-import { IUserRepository } from '../repository/userRepository';
+import { UserDto } from '../dto/registration/user';
+import { IUserService } from '../../../common/models/interfaces/IUserService';
+import { IUserRepository } from '../repository/IUserRepository';
 import { Encryptor } from '../../../adapter/middleware/encryptor';
-import { LoginDto } from '../dto/login';
+import { LoginDto } from '../dto/registration/login';
 
 export class UserService implements IUserService {
   private _repository: IUserRepository;

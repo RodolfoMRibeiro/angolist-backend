@@ -9,11 +9,11 @@ export class Env {
 
   public static Load = (): void => {
     dotenv.config({ path: __dirname + '/../../../.env' });
-    this.loadEnvironmentsVariables();
+    this._loadEnvironmentsVariables();
     this._panicIfNotExists();
   };
 
-  private static loadEnvironmentsVariables = (): void => {
+  private static _loadEnvironmentsVariables = (): void => {
     this.TOKEN_SECRET = <string>process.env.TOKEN_SECRET;
     this.DATABASE_URL = <string>process.env.DATABASE_URL;
     this.HOST = <string>process.env.HOST;

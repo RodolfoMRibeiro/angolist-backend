@@ -1,7 +1,6 @@
 import { IRouter, Router } from 'express';
-import { Routes } from '../../common/util/constants/constants';
 import { Builder } from '../api/builders/userBuilder';
-import { IUserController } from '../api/builders/userController';
+import { IUserController } from '../../common/models/interfaces/IUserController';
 
 export class ApiRouter {
   private static _router: IRouter = Router();
