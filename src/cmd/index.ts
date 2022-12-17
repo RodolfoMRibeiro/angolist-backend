@@ -1,10 +1,10 @@
 import { ApiRouter } from '../adapter/router/router';
 import { Server } from '../adapter/server/server';
 import { Env } from '../common/env/env';
-import { Routes } from '../common/util/constants/constants';
+import { ApiRoutes } from '../common/util/constants/routes';
 
 Env.Load();
 const server = new Server();
-server.app.use(Routes.API, ApiRouter.GetRouter());
+server.app.use(ApiRoutes.API, ApiRouter.GetRouter());
 console.log(Env.PORT);
 server.start();
