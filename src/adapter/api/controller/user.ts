@@ -14,7 +14,6 @@ export class UserController extends BaseController implements IUserController {
     super();
     this._router = Router();
     this._userService = userService;
-    this._registerRoutes();
   }
 
   public async Login(req: Request, res: Response): Promise<Response<boolean>> {
@@ -28,6 +27,17 @@ export class UserController extends BaseController implements IUserController {
         .json({ access: isValidLogin });
     } catch (err) {
       return super.notFound(res, <string>err);
+    }
+  }
+
+  public override async Create(req: Request, res: Response): Promise<Response> {
+    try {
+      const userInstance = <UserDto>req.body;
+      await this._userService.Create(userInstance);
+      return super.successRequest(res, 'user created successfully');
+    } catch (err) {
+      console.log('entrou aqui');
+      return super.clientError(res, <string>err);
     }
   }
 
@@ -45,23 +55,4 @@ export class UserController extends BaseController implements IUserController {
     }
   }
 
-  public override async Create(req: Request, res: Response): Promise<Response> {
-    try {
-      const userInstance = <UserDto>req.body;
-      await this._userService.Create(userInstance);
-      return super.successRequest(res, 'user created successfully');
-    } catch (err) {
-      return super.clientError(res, <string>err);
-    }
-  }
-
-  public override SetupRouter(router: IRouter): void {
-    router.use(Routes.USER, this._router);
-  }
-
-  private _registerRoutes() {
-    this._router.post(Routes.CREATE, this.Create);
-    this._router.post(Routes.DEFAULT, this.Login);
-    this._router.put(Routes.UPDATE, this.Update);
-  }
 }

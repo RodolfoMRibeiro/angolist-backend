@@ -13,8 +13,6 @@ export abstract class BaseController implements IController {
     response: express.Response,
   ): Promise<express.Response>;
 
-  public abstract SetupRouter(router: express.IRouter): void;
-
   public static jsonResponse(
     response: express.Response,
     code: number,
