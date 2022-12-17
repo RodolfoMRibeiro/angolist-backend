@@ -8,7 +8,7 @@ import { EnvError } from '../../common/util/errors/errors';
 export class Middleware {
   public static generateAccessToken = (login: LoginDto): string => {
     try {
-      return jwt.sign(login, <jwt.Secret>Env.TOKEN_SECRET, {
+      return jwt.sign(login, <jwt.Secret>Env.SECRET_TOKEN, {
         expiresIn: '2h',
       });
     } catch (e) {
@@ -29,7 +29,7 @@ export class Middleware {
       return response.sendStatus(unauthorizedStatusCode);
     }
 
-    jwt.verify(token, <jwt.Secret>Env.TOKEN_SECRET, (error) => {
+    jwt.verify(token, <jwt.Secret>Env.SECRET_TOKEN, (error) => {
       if (error != null) {
         const forbiddenStatusCode = 403;
         return response.sendStatus(forbiddenStatusCode);

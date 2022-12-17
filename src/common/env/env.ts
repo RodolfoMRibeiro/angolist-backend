@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv';
 import { EnvError } from '../util/errors/errors';
 
 export class Env {
-  public static TOKEN_SECRET: string;
+  public static SECRET_TOKEN: string;
   public static DATABASE_URL: string;
-  public static HOST: string;
+  public static RENDER_EXTERNAL_HOSTNAME: string;
   public static PORT: string;
 
   public static Load = (): void => {
@@ -14,16 +14,16 @@ export class Env {
   };
 
   private static _loadEnvironmentsVariables = (): void => {
-    this.TOKEN_SECRET = <string>process.env.TOKEN_SECRET;
+    this.SECRET_TOKEN = <string>process.env.SECRET_TOKEN;
     this.DATABASE_URL = <string>process.env.DATABASE_URL;
-    this.HOST = <string>process.env.HOST;
+    this.RENDER_EXTERNAL_HOSTNAME = <string>process.env.RENDER_EXTERNAL_HOSTNAME;
     this.PORT = <string>process.env.PORT;
   };
 
   private static _panicIfNotExists() {
-    if (this.TOKEN_SECRET === undefined) this._panic();
+    if (this.SECRET_TOKEN === undefined) this._panic();
     if (this.DATABASE_URL === undefined) this._panic();
-    if (this.HOST === undefined) this._panic();
+    if (this.RENDER_EXTERNAL_HOSTNAME === undefined) this._panic();
     if (this.PORT === undefined) this._panic();
   }
 

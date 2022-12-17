@@ -7,4 +7,4 @@ Env.Load();
 const server = new Server();
 server.app.use(ApiRoutes.API, ApiRouter.GetRouter());
 console.log(Env.PORT);
-server.start();
+server.Start();

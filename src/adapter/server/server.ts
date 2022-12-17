@@ -8,17 +8,24 @@ export class Server {
   public constructor() {
     this._port = Env.PORT;
     this.app = express();
-    this.config();
+    this._config();
   }
 
-  public start(): void {
+  public Start(): void {
     this.app.listen(this._port, () => {
       console.log(`Server listening in port ${this._port}`);
     });
   }
 
-  private config = (): void => {
+  private _config = (): void => {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    this._loadHealthRoute();
   };
+
+  private _loadHealthRoute = (): void => {
+    this.app.get('/health', (req, res) => {
+      res.status(200).send({message: `I am alive, DON'T PANIC!`});
+    })
+  }
 }
