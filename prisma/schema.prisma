@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://root:root@localhost:5432/db_angolist?schema=public"
+  url      = env("DATABASE_URL")
 }
 
 generator client {

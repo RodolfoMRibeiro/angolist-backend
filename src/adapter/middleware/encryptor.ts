@@ -1,4 +1,5 @@
 import * as bcrypt from 'bcrypt';
+import { MiddlewareError } from '../../common/util/errors/errors';
 
 export class Encryptor {
   private static readonly _saltRounds: number = 10;
@@ -10,7 +11,7 @@ export class Encryptor {
         return encryptedPassword;
       })
       .catch((err) => {
-        throw new Error(`COULD NOT GENERATE HASH: ${err}`);
+        throw new Error(MiddlewareError.COULD_NOT_GENERATE_HASH + err);
       });
 
     return hashedPassword;
@@ -26,7 +27,7 @@ export class Encryptor {
         return result;
       })
       .catch((err) => {
-        throw new Error(`COULD NOT VALIDATE PASSWORD: ${err}`);
+        throw new Error(MiddlewareError.COULD_NOT_VALIDATE_PASSWORD + err);
       });
 
     return isSamePassword;

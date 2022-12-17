@@ -1,38 +1,53 @@
-import { Router, IRouter, Request, Response } from 'express';
-import { BaseController } from '../models/classes/baseControllerClass';
-import { IUserService } from '../../../modules/login/service/UserServiceInterface';
-import { UserDto } from '../../../modules/login/dto/user';
-import { Routes } from '../../../common/util/constants/constants';
+import { Request, Response } from 'express';
+import { BaseController } from '../../../common/models/classes/baseControllerClass';
+import { IUserService } from '../../../common/models/interfaces/IUserService';
+import { UserDto } from '../../../modules/login/dto/registration/user';
+import { IUserController } from '../../../common/models/interfaces/IUserController';
+import { LoginDto } from '../../../modules/login/dto/registration/login';
+import { RegistrationError } from '../../../common/util/errors/errors';
 
-export class UserController extends BaseController {
-  private _router: IRouter;
+export class UserController extends BaseController implements IUserController {
   private _userService: IUserService;
 
   constructor(userService: IUserService) {
     super();
-    this._router = Router();
     this._userService = userService;
-    this._registerRoutes();
   }
 
-  public override create = async (
-    req: Request,
-    res: Response,
-  ): Promise<Response> => {
+  public async Login(req: Request, res: Response): Promise<Response<boolean>> {
+    try {
+      const userInstance = <LoginDto>req.body;
+      const isValidLogin = await this._userService.Login(userInstance);
+
+      return super.successRequest(res, { access: isValidLogin });
+    } catch (err) {
+      console.log(err);
+      return super.notFound(res, RegistrationError.COULD_NOT_FIND_USER);
+    }
+  }
+
+  public override async Create(req: Request, res: Response): Promise<Response> {
     try {
       const userInstance = <UserDto>req.body;
-      await this._userService.create(userInstance);
-      return this.successRequest(res, 'user created successfully');
-    } catch (e) {
-      return this.clientError(res, 'COULD NOT CREATE USER');
+      await this._userService.Create(userInstance);
+    
+      return super.successRequest(res, 'user created successfully');
+    } catch (err) {
+      console.log(err);
+      return super.clientError(res, RegistrationError.COULD_NOT_CREATE_USER);
     }
-  };
-
-  public override SetupRouter(router: IRouter): void {
-    router.use(Routes.USER, this._router);
   }
 
-  private _registerRoutes() {
-    this._router.post(Routes.CREATE, this.create);
+  public override async Update(req: Request, res: Response): Promise<Response> {
+    try {
+      const userInstance = <UserDto>req.body;
+      const updatedUser = await this._userService.Update(userInstance);
+
+      return super.successRequest(res, { updatedUser: updatedUser })
+    } catch (err) {
+      console.log(err);
+      return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
+    }
   }
+
 }
