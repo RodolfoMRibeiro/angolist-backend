@@ -7,4 +7,5 @@ export class ApiRoutes {
     public static readonly LOGIN = '/registration/login';
     public static readonly CREATE_USER = '/registration/create';
     public static readonly UPDATE_USER = '/registration/update';
+    public static readonly DELETE_USER = '/registration/delete';
   }

@@ -16,20 +16,6 @@ export class UserController extends BaseController implements IUserController {
     this._userService = userService;
   }
 
-  public async Login(req: Request, res: Response): Promise<Response<boolean>> {
-    try {
-      const userInstance = <LoginDto>req.body;
-      const isValidLogin = await this._userService.Login(userInstance);
-
-      const accessToken = isValidLogin ? Middleware.generateAccessToken(userInstance) :
-        Str.EMPTY_STRING;
-
-      return super.successRequest(res, { access: isValidLogin, token: accessToken });
-    } catch (err) {
-      return super.notFound(res, { access: false, token: Str.EMPTY_STRING });
-    }
-  }
-
   public override async Create(req: Request, res: Response): Promise<Response> {
     try {
       const userInstance = <UserDto>req.body;
@@ -49,6 +35,31 @@ export class UserController extends BaseController implements IUserController {
       return super.successRequest(res, { user: updatedUser })
     } catch (err) {
       return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
+    }
+  }
+
+  public async Login(req: Request, res: Response): Promise<Response<boolean>> {
+    try {
+      const userInstance = <LoginDto>req.body;
+      const isValidLogin = await this._userService.Login(userInstance);
+
+      const accessToken = isValidLogin ? Middleware.generateAccessToken(userInstance) :
+        Str.EMPTY_STRING;
+
+      return super.successRequest(res, { access: isValidLogin, token: accessToken });
+    } catch (err) {
+      return super.notFound(res, { access: false, token: Str.EMPTY_STRING });
+    }
+  }
+
+  public async Delete(req: Request, res: Response): Promise<Response<boolean>> {
+    try {
+      const userInstance = <UserDto>req.body;
+      const userWasDeleted = await this._userService.Delete(userInstance.email);
+
+      return super.successRequest(res, { deleted: userWasDeleted });
+    }catch (err) {
+      return super.clientError(res, RegistrationError.COULD_NOT_DELETE_USER);
     }
   }
 }

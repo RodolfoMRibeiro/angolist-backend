@@ -43,4 +43,13 @@ export class UserService implements IUserService {
       throw new Error(<string>err);
     }
   }
+
+  public async Delete(email: string): Promise<boolean> {
+    try {
+      await this._repository.Delete(email);
+      return true;
+    }catch(err) {
+      return false
+    }
+  }
 }

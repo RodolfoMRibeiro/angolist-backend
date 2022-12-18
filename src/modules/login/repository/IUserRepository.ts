@@ -5,4 +5,5 @@ export interface IUserRepository {
   Create(user: UserDto): Promise<void>;
   Login(email: string): Promise<LoginDto>;
   Update(user: UserDto): Promise<UserDto>;
+  Delete(email: string): Promise<void>;
 }

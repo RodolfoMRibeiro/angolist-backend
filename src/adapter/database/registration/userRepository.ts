@@ -45,4 +45,14 @@ export class UserRepository implements IUserRepository {
 
     return updatedUser;
   }
+
+  public async Delete(email: string): Promise<void> {
+    await this._prismaClient.user.delete({
+      where: {
+        email: email,
+      },
+    }).catch((err) => {
+      throw new Error(RegistrationError.COULD_NOT_DELETE_USER + <string>err);
+    });
+  }
 }

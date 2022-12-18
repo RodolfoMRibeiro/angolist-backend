@@ -5,4 +5,5 @@ export interface IUserService {
   Create(user: UserDto): Promise<void>;
   Login(user: LoginDto): Promise<boolean>;
   Update(user: UserDto): Promise<UserDto>;
+  Delete(email: string): Promise<boolean>;
 }

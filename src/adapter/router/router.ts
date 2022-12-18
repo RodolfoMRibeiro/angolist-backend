@@ -15,6 +15,7 @@ export class ApiRouter {
     const controller: IUserController = Builder.NewUserController();
     const routes = RegistrationRoutes;
 
+    this._router.delete(routes.DELETE_USER, (res, resp) => {controller.Delete(res, resp)});
     this._router.post(routes.CREATE_USER, (res, resp) => {controller.Create(res, resp)});
     this._router.put(routes.UPDATE_USER, (res, resp) => {controller.Update(res, resp)});
     this._router.post(routes.LOGIN, (res, resp) => {controller.Login(res, resp)});
