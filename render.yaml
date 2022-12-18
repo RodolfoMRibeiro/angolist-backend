@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: angolist
+    region: oregon
+    plan: free
+    env: node
+    repo: https://github.com/RodolfoMRibeiro/angolist-backend.git
+
+
+databases:
+  - name: prod
+    region: oregon
+    plan: free
+    databaseName: prod_app
+    user: root
+
+    envVars:
+    - key: POSTGRES_DB
+      value: angolist
+    - key: POSTGRES_USER
+      value: root
+    - key: POSTGRES_PASSWORD
+      value: root
