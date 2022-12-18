@@ -26,8 +26,7 @@ export class UserController extends BaseController implements IUserController {
 
       return super.successRequest(res, { access: isValidLogin, token: accessToken });
     } catch (err) {
-      console.log(err);
-      return super.notFound(res, RegistrationError.COULD_NOT_FIND_USER);
+      return super.notFound(res, { access: false, token: Str.EMPTY_STRING });
     }
   }
 
@@ -38,7 +37,6 @@ export class UserController extends BaseController implements IUserController {
     
       return super.successRequest(res, { user: userInstance });
     } catch (err) {
-      console.log(err);
       return super.clientError(res, RegistrationError.COULD_NOT_CREATE_USER);
     }
   }
@@ -50,7 +48,6 @@ export class UserController extends BaseController implements IUserController {
 
       return super.successRequest(res, { user: updatedUser })
     } catch (err) {
-      console.log(err);
       return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
     }
   }
