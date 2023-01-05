@@ -21,10 +21,14 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <LoginDto>req.body;
       const isValidLogin = await this._userService.Login(userInstance);
 
-      const accessToken = isValidLogin ? Middleware.generateAccessToken(userInstance) :
-        Str.EMPTY_STRING;
+      const accessToken = isValidLogin
+        ? Middleware.generateAccessToken(userInstance)
+        : Str.EMPTY_STRING;
 
-      return super.successRequest(res, { access: isValidLogin, token: accessToken });
+      return super.successRequest(res, {
+        access: isValidLogin,
+        token: accessToken,
+      });
     } catch (err) {
       console.log(err);
       return super.notFound(res, RegistrationError.COULD_NOT_FIND_USER);
@@ -35,7 +39,7 @@ export class UserController extends BaseController implements IUserController {
     try {
       const userInstance = <UserDto>req.body;
       await this._userService.Create(userInstance);
-    
+
       return super.successRequest(res, { user: userInstance });
     } catch (err) {
       console.log(err);
@@ -48,7 +52,7 @@ export class UserController extends BaseController implements IUserController {
       const userInstance = <UserDto>req.body;
       const updatedUser = await this._userService.Update(userInstance);
 
-      return super.successRequest(res, { user: updatedUser })
+      return super.successRequest(res, { user: updatedUser });
     } catch (err) {
       console.log(err);
       return super.clientError(res, RegistrationError.COULD_NOT_UPDATE_USER);
