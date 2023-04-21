@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { EnvError } from '../util/errors/errors';
+import { EnvError } from '../../common/util/errors/errors';
 
 export class Env {
   public static SECRET_TOKEN: string;
