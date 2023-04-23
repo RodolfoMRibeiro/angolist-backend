@@ -1,24 +1,28 @@
-import express, { Application } from 'express';
+import express, { Application, Router } from 'express';
 
 export class Server {
-  public app: express.Application;
+  private _app!: Application;
   private _port: number;
 
   constructor(port = 8080) {
     this._port = port;
-    this.app = express();
+    this._app = express();
     this._configureMiddleware();
   }
 
   public Start(): void {
-    this.app.listen(this._port, () => {
+    this._app.listen(this._port, () => {
       console.log(`Server listening in port ${this._port}`);
     });
   }
 
+  private _addRouter(router: Router): void {
+    this._app.use('/api', router);
+  }
+
   private _configureMiddleware(): void {
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: false }));
+    this._app.use(express.json());
+    this._app.use(express.urlencoded({ extended: false }));
   }
 
   private _configureRoutes(): void {}

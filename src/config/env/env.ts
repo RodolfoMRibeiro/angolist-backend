@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-import { EnvError } from '../../common/util/errors/errors';
+import { EnvError } from '../../common/errors/errors';
 
 export class Env {
   public static SECRET_TOKEN: string;
@@ -21,9 +21,9 @@ export class Env {
   };
 
   private static _panicIfNotExists() {
-    if (this.SECRET_TOKEN === undefined) this._panic('secret_token');
-    if (this.DATABASE_URL === undefined) this._panic('database_url');
-    if (this.PORT === undefined) this._panic('port');
+    if (!this.SECRET_TOKEN) this._panic('secret_token');
+    if (!this.DATABASE_URL) this._panic('database_url');
+    if (!this.PORT) this._panic('port');
   }
 
   private static _panic(message?: string) {

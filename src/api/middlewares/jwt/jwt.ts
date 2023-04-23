@@ -3,12 +3,12 @@ import { HttpStatus } from '@nestjs/common';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 
 import { Env } from '../../../config/env/env';
-import { Header } from '../../../common/util/constants/constants';
-import { HttpError } from '../../../common/util/errors/http';
+import { Header } from '../../../common/constants/constants';
+import { HttpError } from '../../../common/errors/http';
 
 interface JwtService {
   generateToken(payload: Record<string, any>): string;
-  verifyToken(token: string): TokenPayload;
+  decodeToken(token: string): TokenPayload;
 }
 
 interface TokenPayload {
@@ -36,7 +36,7 @@ class JwtMiddleware {
     }
 
     try {
-      const decoded = this._jwtService.verifyToken(token);
+      const decoded = this._jwtService.decodeToken(token);
       if (decoded.exp < Date.now() / 1000) {
         throw new HttpError('Token expired', HttpStatus.FORBIDDEN);
       }
@@ -63,7 +63,7 @@ const jwtService: JwtService = {
     });
   },
 
-  verifyToken: (token: string): TokenPayload => {
+  decodeToken: (token: string): TokenPayload => {
     if (!Env.SECRET_TOKEN) {
       throw new Error('Missing environment variable');
     }

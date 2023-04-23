@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { MiddlewareError } from '../../common/util/errors/middleware';
+import { MiddlewareError } from '../../../common/errors/errors';
 
 export class Encryptor {
   private static readonly _saltRounds: number = 10;

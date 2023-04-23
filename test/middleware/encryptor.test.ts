@@ -1,4 +1,4 @@
-import { Encryptor } from '../../src/adapter/middleware/encryptor';
+import { Encryptor } from '../../src/core/utils/hash/encryptor';
 
 describe('Encryptor --> HashPassword', () => {
   test('encrypt password using HashPassword functions', async () => {
